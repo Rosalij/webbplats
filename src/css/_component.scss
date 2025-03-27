@@ -1,0 +1,66 @@
+@use 'base' as *;
+
+#searchButton {
+    background-color: $matteorange;
+    width: 7em;
+    border-radius: 25px;
+    height: 4em;
+    border-color: $matteorange;
+    border-style: solid;
+    border-width: 4px;
+    font-family: "manrope";
+    color: $coldwhite;
+    font-weight: 900;
+    transition: 0.5s;
+}
+
+#searchButton:hover {
+    border-color: $darkblue;
+    color: $coldwhite;
+}
+
+
+#sun_div {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#sun,
+#sunrays {
+position: absolute;
+
+
+}
+
+.sun_div  {
+    position:sticky;
+    overflow: hidden;
+    height: 31em;
+    width: 100%;
+    top: 100%;
+    display: flex;
+}
+#sun{
+ display: flex;
+    width: 35em;
+    height: 35em;
+    background: $matteorange;
+    border-radius: 50%;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#sunrays {
+ display: flex;
+    width: 48em;
+    height: 48em;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotate 50s linear infinite;
+
+}
+
+

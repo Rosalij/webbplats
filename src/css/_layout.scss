@@ -1,0 +1,123 @@
+@use 'base' as *;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: $font-stack;
+    color: $darkblue;
+    font-weight: 500;
+    background-color: $coldwhite;
+
+    header {
+        width: 100%;
+        height: 15em;
+        background-color: $darkblue;
+        display: flex;
+        flex-direction: column;
+
+        #slogan {
+            margin: auto;
+            font-family: $font-logo;
+            margin-top: 3em;
+            margin-bottom: -3em;
+            font-weight: 500;
+            font-size: 1.7em;
+            color: $coldwhite;
+        }
+
+        #slogantext {
+            font-size: 1.1em;
+            margin: auto;
+            color: $coldwhite;
+        }
+
+    }
+
+    #description {
+        font-size: 1.3em;
+        margin: auto;
+        text-align: center;
+        margin-top: 3em;
+        font-weight: 500;
+        width: 50%;
+    }
+
+ 
+
+label {
+    font-size: 1.1em;
+    margin: auto;
+    margin-top: 3em;
+    font-weight: 500;
+    width: 50%;
+ 
+
+}
+
+    #searchForm {
+        font-size: 1.3em;
+        margin: auto;
+        margin-top: 3em;
+        font-weight: 500;
+        margin-top: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #searchForm input {
+        margin-top: 0.5em;
+        border-color: $matteorange;
+        border-style: solid;
+        border-width: 4px;
+        background-color: $coldwhite;
+        height: 1.5em;
+        padding: 1em;
+        font-family: "manrope";
+        color: $darkblue;
+        font-weight: 900;
+        border-radius: 35px;
+        width: 17em;
+        transition: 0.5s;
+    }
+
+    #searchForm input:hover {
+        border-color: $darkblue;
+    }
+
+    footer {
+
+        background-color: $lightbeige;
+        height: 4em;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        font-size: 1.5em;
+        align-items: center;
+        position: relative;
+        bottom: 0;
+        z-index: 1000;   p {margin: auto;}
+    }
+}
+
+@media all and (max-width: 900px) {
+#sun, #sunrays {
+max-width: 20em;
+max-height: 20em;
+}
+#sunrays {
+    max-width: 30em;
+    max-height: 27em;
+}
+.sun_div {
+    margin-top: -10em;
+}
+
+p {
+    font-size: 15px;
+}
+}
