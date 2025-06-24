@@ -137,19 +137,30 @@ async function readWeatherData(latitude, longitude) {
 						'y-temp': {
 							type: 'linear',
 							position: 'left',
-							title: { display: true, text: 'Temperature (°C)' }
-						},
-						'y-snow': {
-							type: 'linear',
-							position: 'right',
-							title: { display: true, text: 'Snow (mm)' },
-							grid: { drawOnChartArea: false }
+							title: { display: true, text: 'Temperature (°C)' },
+							ticks: {
+								color: 'red'
+							}
 						},
 						'y-rain': {
 							type: 'linear',
 							position: 'right',
-							title: { display: true, text: 'Rain (mm)' },
-							grid: { drawOnChartArea: false }
+							title: { display: true, text: 'Precipitation (mm)' },
+							ticks: {
+								color: 'rgba(54, 162, 235, 0.6)'
+							},
+							grid: {
+								drawOnChartArea: false // only want the grid lines for one axis to show up
+							}
+						},
+						'y-snow': { 
+							display: false  // hide axis line & ticks to save space
+						},
+						'y-wind': {
+							display: false  // hide axis line & ticks to save space
+						},
+						'y-uv': {
+							display: false  // hide axis line & ticks to save space
 						}
 					}
 				}
