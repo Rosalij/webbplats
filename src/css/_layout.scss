@@ -103,7 +103,21 @@ label {
         z-index: 1000;   p {margin: auto;}
     }
 }
+h2 {
+padding-top: 1em;
+padding-bottom: 1em;
+    width: 100%;
+    text-align: center;
+}
 
+.weatherdiv {
+    margin: 1em;
+    margin-top: 2em;
+    padding: 1em;
+    background-color: $warmgrey;
+    border:15px solid $darkblue;
+    border-radius: 4em;
+}
 @media all and (max-width: 900px) {
 #sun, #sunrays {
 max-width: 20em;
@@ -111,7 +125,7 @@ max-height: 20em;
 }
 #sunrays {
     max-width: 27em;
-    max-height: 27em;
+    max-height: 25em;
 }
 .sun_div {
     margin-top: -10em;
@@ -119,5 +133,10 @@ max-height: 20em;
 
 p {
     font-size: 15px;
+}
+
+canvas {
+    width: 10%;
+    height: 200em;
 }
 }

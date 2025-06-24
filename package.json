@@ -4,16 +4,15 @@
   "source": "src/index.html",
   "description": "Detta är en webbplats för projektet i kursen Frontend-utveckling på mittuniversitetet.",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
+  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "parcel": "^2.14.2"
-  },
-  "devDependencies": {
-    "@parcel/transformer-sass": "^2.14.2",
-    "svgo": "^3.3.2"
+    "openmeteo": "^1.2.0",
+    "vite": "^7.0.0"
   }
 }
