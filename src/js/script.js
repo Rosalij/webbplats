@@ -153,7 +153,7 @@ async function readWeatherData(latitude, longitude) {
 								drawOnChartArea: false // only want the grid lines for one axis to show up
 							}
 						},
-						'y-snow': { 
+						'y-snow': {
 							display: false  // hide axis line & ticks to save space
 						},
 						'y-wind': {
@@ -188,3 +188,10 @@ document.getElementById('searchForm').addEventListener('submit', async (e) => {
 		await readWeatherData(coordinates.latitude, coordinates.longitude);
 	}
 });
+const weatherDivEl = document.querySelector(".weatherDiv");
+const weatherChartEl = document.getElementById("weatherChart");
+if (weatherChartEl.innerHTML === "") {
+	weatherChartEl.style.display = "none";
+	weatherDivEl.style.display = "none";
+
+}
