@@ -176,7 +176,10 @@ document.getElementById('searchForm').addEventListener('submit', async (e) => {
 	e.preventDefault();
 	const location = document.getElementById('locationInput').value;
 	const coordinates = await getCoordinates(location);
+		weatherChartEl.style.display = "block";
+	weatherDivEl.style.display = "block";
 	if (coordinates) {
+		
 		// Show city and country first (reverse geocode)
 		const locData = await getLocation(coordinates.latitude, coordinates.longitude);
 		if (locData) {
@@ -188,6 +191,8 @@ document.getElementById('searchForm').addEventListener('submit', async (e) => {
 		await readWeatherData(coordinates.latitude, coordinates.longitude);
 	}
 });
+
+
 const weatherDivEl = document.querySelector(".weatherDiv");
 const weatherChartEl = document.getElementById("weatherChart");
 if (weatherChartEl.innerHTML === "") {
