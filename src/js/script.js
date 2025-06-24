@@ -1,22 +1,56 @@
 "use strict";
 
-async function fetchData() {
+
+async function getCoordinates(location) {
 	try {
-		const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,sunrise,sunset,uv_index_max,snowfall_sum,rain_sum,wind_speed_10m_max,temperature_2m_min&timezone=auto');
+		const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(location)}&count=1`);
+		const data = await response.json();
+		if (data.results && data.results.length > 0) {
+			const { latitude, longitude } = data.results[0];
+			return { latitude, longitude };
+		} else {
+			throw new Error("Location not found");
+		}
+	} catch (error) {
+		console.error("Geocoding error:", error);
+	}
+}
+
+
+async function fetchData(latitude, longitude) {
+	try {
+		const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,sunrise,sunset,uv_index_max,snowfall_sum,rain_sum,wind_speed_10m_max,temperature_2m_min&timezone=auto`);
 		if (!response.ok) {
 			throw new Error(`status: ${response.status}`);
 		}
 		const data = await response.json();
 		console.log(data);
-	return data;
+		return data;
+
 	} catch (error) {
 		console.error('Error fetching data:', error);
 	}
 }
 
-async function readWeatherData() {
+async function getLocation(latitude, longitude) {
 	try {
-		const result = await fetchData();
+		const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+		const data = await response.json();
+		if (data && data.address) {
+			const city = data.address.city || data.address.town || data.address.village || data.address.hamlet || "Unknown city";
+			const country = data.address.country || "Unknown country";
+			return { city, country };
+		} else {
+			throw new Error("Location not found");
+		}
+	} catch (error) {
+		console.error("Reverse geocoding error:", error);
+	}
+}
+
+async function readWeatherData(latitude, longitude) {
+	try {
+		const result = await fetchData(latitude, longitude);
 		if (result && result.daily) {
 			const dates = result.daily.time;
 			const tempsmax = result.daily.temperature_2m_max;
@@ -28,8 +62,12 @@ async function readWeatherData() {
 
 			const ctx = document.getElementById('weatherChart').getContext('2d');
 
-			new Chart(ctx, {
-				type: 'bar', 
+			if (weatherChart) {
+				weatherChart.destroy();
+			}
+
+			weatherChart = new Chart(ctx, {
+				type: 'bar',
 				data: {
 					labels: dates.map(date => new Date(date).toDateString()),
 					datasets: [
@@ -51,7 +89,7 @@ async function readWeatherData() {
 							yAxisID: 'y-temp',
 							fill: false
 						},
-							{
+						{
 							type: 'bar',
 							label: 'Snow (mm)',
 							data: snow,
@@ -87,6 +125,7 @@ async function readWeatherData() {
 				},
 				options: {
 					responsive: true,
+					maintainAspectRatio: false,
 					interaction: {
 						mode: 'index',
 						intersect: false
@@ -112,7 +151,7 @@ async function readWeatherData() {
 							title: { display: true, text: 'Rain (mm)' },
 							grid: { drawOnChartArea: false }
 						}
-				 }
+					}
 				}
 			});
 		}
@@ -120,5 +159,21 @@ async function readWeatherData() {
 		console.error('Error processing weather data:', error);
 	}
 }
+let weatherChart = null;
 
-readWeatherData();
+document.getElementById('searchForm').addEventListener('submit', async (e) => {
+	e.preventDefault();
+	const location = document.getElementById('locationInput').value;
+	const coordinates = await getCoordinates(location);
+	if (coordinates) {
+		// Show city and country first (reverse geocode)
+		const locData = await getLocation(coordinates.latitude, coordinates.longitude);
+		if (locData) {
+			document.getElementById('locationText').textContent = `7 day weather for ${locData.city}, ${locData.country}`;
+		} else {
+			document.getElementById('locationText').textContent = 'Location not found';
+		}
+		// Then fetch and render weather data
+		await readWeatherData(coordinates.latitude, coordinates.longitude);
+	}
+});
