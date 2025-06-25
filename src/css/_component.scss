@@ -63,3 +63,39 @@ position: absolute;
 
 }
 
+#sunsetsunriseDiv{
+    display: flex;
+    width: 100%;
+    margin: auto;
+    gap: 5em;
+    justify-content: center;
+}
+ #sunsetsunriseDiv div {
+    display: flex;
+    transition: 1s;
+    flex-direction: column;
+    text-align: center;
+    p {
+        font-size: 1.5em;
+        margin-top: 0;
+    }
+}
+
+
+#sunriseimg, #sunsetimg {
+width: 100%;
+display: flex;
+
+}
+
+
+#sunsetsunriseDiv div:hover{
+transform: scale(120%, 120%);
+
+}
+
+#city-aqi-container {
+width: 100em;
+background-color: aquamarine;
+height: 100em;
+}

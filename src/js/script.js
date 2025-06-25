@@ -17,6 +17,7 @@ async function getCoordinates(location) {
 }
 
 
+
 async function fetchData(latitude, longitude) {
 	try {
 		const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,sunrise,sunset,uv_index_max,snowfall_sum,rain_sum,wind_speed_10m_max,temperature_2m_min&timezone=auto`);
@@ -52,6 +53,8 @@ async function readWeatherData(latitude, longitude) {
 	try {
 		const result = await fetchData(latitude, longitude);
 		if (result && result.daily) {
+			const sunrise = result.daily.sunrise[0];
+			const sunset = result.daily.sunset[0];
 			const dates = result.daily.time;
 			const tempsmax = result.daily.temperature_2m_max;
 			const tempsmin = result.daily.temperature_2m_min;
@@ -60,6 +63,7 @@ async function readWeatherData(latitude, longitude) {
 			const snow = result.daily.snowfall_sum;
 			const uvIndex = result.daily.uv_index_max;
 
+			loadSunriseSunset(sunrise, sunset);
 			const ctx = document.getElementById('weatherChart').getContext('2d');
 
 			if (weatherChart) {
@@ -150,17 +154,17 @@ async function readWeatherData(latitude, longitude) {
 								color: 'rgba(54, 162, 235, 0.6)'
 							},
 							grid: {
-								drawOnChartArea: false // only want the grid lines for one axis to show up
+								drawOnChartArea: false 
 							}
 						},
 						'y-snow': {
-							display: false  // hide axis line & ticks to save space
+							display: false 
 						},
 						'y-wind': {
-							display: false  // hide axis line & ticks to save space
+							display: false 
 						},
 						'y-uv': {
-							display: false  // hide axis line & ticks to save space
+							display: false  
 						}
 					}
 				}
@@ -176,27 +180,42 @@ document.getElementById('searchForm').addEventListener('submit', async (e) => {
 	e.preventDefault();
 	const location = document.getElementById('locationInput').value;
 	const coordinates = await getCoordinates(location);
-		weatherChartEl.style.display = "block";
-	weatherDivEl.style.display = "block";
+	
 	if (coordinates) {
-		
-		// Show city and country first (reverse geocode)
+			weatherChartEl.style.display = "block";
+	weatherDivEl.style.display = "block";
+	dataDivEl.style.display = "block";
+		//show city and country first (reverse geocode)
 		const locData = await getLocation(coordinates.latitude, coordinates.longitude);
 		if (locData) {
 			document.getElementById('locationText').textContent = `7 day weather for ${locData.city}, ${locData.country}`;
 		} else {
 			document.getElementById('locationText').textContent = 'Location not found';
 		}
-		// Then fetch and render weather data
+		//fetch and render weather data
 		await readWeatherData(coordinates.latitude, coordinates.longitude);
 	}
 });
 
-
 const weatherDivEl = document.querySelector(".weatherDiv");
 const weatherChartEl = document.getElementById("weatherChart");
+const dataDivEl = document.querySelector(".dataDiv");
 if (weatherChartEl.innerHTML === "") {
 	weatherChartEl.style.display = "none";
 	weatherDivEl.style.display = "none";
+	dataDivEl.style.display = "none";
 
 }
+
+function loadSunriseSunset(sunrise, sunset) {
+	  //convert sunrise and sunset times to local time
+  sunrise = new Date(sunrise).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  sunset = new Date(sunset).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  const sunrisetextEl = document.getElementById("sunrisetext")
+  const sunsettextEl = document.getElementById("sunsettext")
+  sunrisetextEl.innerHTML = `sunrise: ${sunrise}`
+  sunsettextEl.innerHTML = `sunset: ${sunset}`
+
+}
+
