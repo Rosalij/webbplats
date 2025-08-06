@@ -12,7 +12,6 @@ export async function fetchData(latitude, longitude) {
 			throw new Error(`status: ${response.status}`);
 		}
 		const data = await response.json();
-		console.log(data);
 		return data;
 
 	} catch (error) {
@@ -20,11 +19,31 @@ export async function fetchData(latitude, longitude) {
 	}
 }
 
+/**
+ * Fetches marine weather data, (surf forecast) for given coordinates.
+ * @param {number} latitude
+ * @param {number} longitude
+ * @returns {Promise<Object | undefined>} Weather data from the API.
+ */
+export async function fetchSurfData(latitude, longitude) {
+	try {
+		const response = await fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${latitude}&longitude=${longitude}&hourly=wave_period,wave_direction,wave_height&forecast_days=3`);
+		if (!response.ok) {
+			throw new Error(`status: ${response.status}`);
+		}
+		const data = await response.json();
+
+		return data;
+
+	} catch (error) {
+		console.error('Error fetching data:', error);
+	}
+};
 
 /**
  * Updates DOM elements with local sunrise and sunset times.
- * @param {string} sunrise - time string.
- * @param {string} sunset -  time string.
+ * @param {string} sunrise time string.
+ * @param {string} sunset time string.
  */
 export  function loadSunriseSunset(sunrise, sunset) {
 //convert sunrise and sunset times to local time

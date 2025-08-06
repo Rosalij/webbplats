@@ -1,4 +1,5 @@
 
+@use 'base' as *;
 @keyframes rotate {
     from {
       transform: translate(-50%, -50%) rotate(0deg);
@@ -8,3 +9,69 @@
     }
   }
 
+  @keyframes clouds {
+    0% {
+        transform: translateX(-25em); 
+    }
+    100% {
+        transform: translateX(100vw);
+    }
+    
+  }
+
+#waveArrow {
+    position: relative;
+    width: 6em;
+    height: 6em;
+    background: url('/assets/arrow.svg') center/contain no-repeat;
+    background-size: 50%;
+    background-color: $darkblue;
+    border-radius: 100%;
+    pointer-events: none;
+    margin: auto;
+    transition: transform 0.3s ease;
+    z-index: 999;
+}
+
+#sunrays {
+    display: flex;
+    width: 48em;
+    height: 48em;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotate 50s linear infinite;
+
+}
+
+#sunsetsunriseDiv div:hover {
+    transform: scale(120%, 120%);
+
+}
+
+#cloud1
+ {
+  position: absolute;
+   overflow: hidden;
+    width: 7em;
+    left: 20em;
+        animation: clouds 100s linear  infinite;
+ }
+#cloud2 {
+    position: absolute;
+  width: 3em;
+    animation: clouds 100s linear infinite ;
+}
+
+
+#cloudsanimation {
+    position: absolute;
+    top: -10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 10em;
+       overflow: hidden;
+
+}

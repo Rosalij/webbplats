@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Fetches geographical coordinates (latitude & longitude) for location name.
+ * Fetches coordinates (latitude & longitude) for location name.
  * @param {string} location - The name of the location.
  * @returns {Promise<{latitude: number, longitude: number} | undefined>} coordinates if found.
  */
@@ -24,7 +24,7 @@ export async function getCoordinates(location) {
 
 
 /**
- * Performs reverse geocoding to find the city and country from coordinates.
+ * Do reverse geocoding to find the city and country from coordinates.
  * @param {number} latitude
  * @param {number} longitude
  * @returns {Promise<{city: string, country: string | undefined}>} location info.
