@@ -234,7 +234,8 @@ export async function readSurfData(latitude, longitude) {
 
                             //Rotate the arrow
                             arrow.style.display = "block";
-                            arrow.style.transform = `rotate(${direction}deg)`;
+                            //show the arrow in the correct direction to where the waves are going
+                            arrow.style.transform =`rotate(${(direction + 180)}deg)`;
                         }
                     },
                     responsive: true,
