@@ -28,21 +28,22 @@
 
 #sun,
 #sunrays {
-position: absolute;
+    position: absolute;
 
 
 }
 
-.sun_div  {
-    position:sticky;
+.sun_div {
+    position: sticky;
     overflow: hidden;
     height: 31em;
     width: 100%;
     top: 100%;
     display: flex;
 }
-#sun{
- display: flex;
+
+#sun {
+    display: flex;
     width: 35em;
     height: 35em;
     background: $matteorange;
@@ -52,14 +53,46 @@ position: absolute;
     transform: translate(-50%, -50%);
 }
 
-#sunrays {
- display: flex;
-    width: 48em;
-    height: 48em;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: rotate 50s linear infinite;
 
+
+#sunsetsunriseDiv {
+    display: flex;
+    width: 100%;
+    margin: auto;
+    gap: 5em;
+    justify-content: center;
+}
+
+#sunsetsunriseDiv div {
+    display: flex;
+    transition: 1s;
+    flex-direction: column;
+    text-align: center;
+
+    p {
+        font-size: 1.5em;
+        margin-top: 0;
+    }
+}
+
+
+#sunriseimg,
+#sunsetimg {
+    width: 100%;
+    display: flex;
+
+}
+
+
+
+
+#surfDiv {
+    p {
+        font-size: 0.6em;
+        text-align: center;
+    }
+    #S {
+    margin-top: 0.2em;
+}
 }
 

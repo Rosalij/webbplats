@@ -14,5 +14,9 @@
   "dependencies": {
     "openmeteo": "^1.2.0",
     "vite": "^7.0.0"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.4",
+    "sass-embedded": "^1.89.2"
   }
 }
